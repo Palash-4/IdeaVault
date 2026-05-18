@@ -1,5 +1,6 @@
 import Banner from "@/component/Banner";
 import Image from "next/image";
+import IdeasPage from "./ideas/page";
 
 export default function Home() {
   return (

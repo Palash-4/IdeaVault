@@ -1,4 +1,4 @@
-import { CopyIcon, CopyrightIcon } from "lucide-react";
+import { CopyrightIcon } from "lucide-react";
 import Link from "next/link";
 
 import {

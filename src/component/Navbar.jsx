@@ -71,8 +71,8 @@ const Navbar = () => {
                             Ideas
                         </Link>
 
-                        {user && (
-                            <>
+                        {/* {user && (
+                            <> */}
                                 <Link
                                     href="/add-idea"
                                     className="text-slate-700 dark:text-slate-300 hover:text-cyan-500 transition font-medium text-lg"
@@ -93,8 +93,8 @@ const Navbar = () => {
                                 >
                                     My Interactions
                                 </Link>
-                            </>
-                        )}
+                            {/* </>
+                        )} */}
                     </nav>
 
                     <div className="flex items-center gap-3 sm:gap-4">
