@@ -13,7 +13,7 @@ const Footer = () => {
     return (
         <footer className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
                     <div>
                         <div className="flex items-center gap-3">
 
@@ -24,7 +24,7 @@ const Footer = () => {
                             </div>
 
                             <div>
-                                <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">
+                                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                                     IdeaVault
                                 </h1>
 
@@ -142,12 +142,11 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="border-t border-slate-200 dark:border-slate-800 mt-14 pt-7 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="border-t border-slate-200 dark:border-slate-800 mt-14 pt-7 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-left">
                     <p className="flex gap-2 text-slate-500 dark:text-slate-400 text-sm text-center md:text-left">
                         <CopyrightIcon></CopyrightIcon> 2026 IdeaVault. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6 text-sm">
-
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 text-sm">
                         <Link
                             href="#"
                             className="text-slate-500 dark:text-slate-400 hover:text-cyan-500 transition"
