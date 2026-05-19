@@ -137,7 +137,6 @@ const Navbar = () => {
                         {!user ? (
 
                             <div className="hidden lg:flex items-center gap-4">
-
                                 <Link
                                     href="/login"
                                     className="text-cyan-500 font-semibold text-lg"
@@ -158,9 +157,9 @@ const Navbar = () => {
                             <div className="hidden lg:block relative group">
 
                                 <img
+                                    referrerPolicy="no-referrer"
                                     src={
-                                        user?.image ||
-                                        "https://i.ibb.co/4pDNDk1/avatar.png"
+                                        user?.image
                                     }
                                     alt="user"
                                     className="w-12 h-12 rounded-full border-2 border-cyan-500 cursor-pointer"
@@ -173,9 +172,9 @@ const Navbar = () => {
                                         <div className="flex items-center gap-3">
 
                                             <img
+                                                referrerPolicy="no-referrer"
                                                 src={
-                                                    user?.image ||
-                                                    "https://i.ibb.co/4pDNDk1/avatar.png"
+                                                    user?.image
                                                 }
                                                 alt={user?.name}
                                                 className="w-14 h-14 rounded-full object-cover border-2 border-cyan-500"
@@ -231,15 +230,14 @@ const Navbar = () => {
                         {user && (
                             <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                                 <img
+                                    referrerPolicy="no-referrer"
                                     src={
-                                        user?.image ||
-                                        "https://i.ibb.co/4pDNDk1/avatar.png"
+                                        user?.image
                                     }
                                     alt={user?.name}
                                     className="w-16 h-16 rounded-full object-cover border-2 border-cyan-500"
                                 />
                                 <div className="min-w-0">
-
                                     <h3 className="font-bold text-xl text-slate-900 dark:text-white line-clamp-1">
                                         {user?.name}
                                     </h3>

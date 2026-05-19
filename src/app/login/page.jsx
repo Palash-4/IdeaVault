@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import {
+    useState,
+} from "react";
+
+import {
+    useRouter,
+    useSearchParams,
+} from "next/navigation";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
@@ -14,9 +21,13 @@ import {
     Label,
     TextField,
 } from "react-aria-components";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
     const [isPending, setIsPending] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirect") || "/";
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget
@@ -31,7 +42,7 @@ const LoginPage = () => {
                 });
             if (data) {
                 toast.success("Login Successful");
-                window.location.replace("/");
+                router.push(redirect);
             }
 
             if (error) {
@@ -42,6 +53,21 @@ const LoginPage = () => {
             toast.error("Something went wrong");
         } finally {
             setIsPending(false);
+        }
+    };
+
+    const handlelogin = async () => {
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: redirect,
+            });
+
+        } catch (error) {
+            console.log(error);
+            toast.error(
+                "Google Sign In Failed"
+            );
         }
     };
 
@@ -122,6 +148,25 @@ const LoginPage = () => {
                             Register
                         </Link>
                     </p>
+                </div>
+                <div className="mt-8">
+                    <div className="relative flex items-center justify-center mb-6">
+
+                        <div className="absolute w-full border-t border-slate-300 dark:border-slate-700"></div>
+
+                        <span className="relative bg-white dark:bg-slate-900 px-4 text-sm text-slate-500 dark:text-slate-400">
+                            OR CONTINUE WITH
+                        </span>
+                    </div>
+
+                    <button
+                        onClick={handlelogin}
+                        type="button"
+                        className="w-full flex items-center justify-center gap-3 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 py-4 rounded-2xl font-bold text-slate-800 dark:text-white shadow-sm"
+                    >
+                        <FcGoogle size={24} />
+                        Login with Google
+                    </button>
                 </div>
             </div>
         </section>

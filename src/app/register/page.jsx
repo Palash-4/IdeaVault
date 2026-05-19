@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -47,6 +48,21 @@ const RegisterPage = () => {
 
         } finally {
             setIsPending(false);
+        }
+    };
+
+    const handleRegister = async () => {
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+
+        } catch (error) {
+            console.log(error);
+            toast.error(
+                "Google Sign In Failed"
+            );
         }
     };
 
@@ -173,6 +189,26 @@ const RegisterPage = () => {
                             Login
                         </Link>
                     </p>
+                </div>
+
+                <div className="mt-8">
+                    <div className="relative flex items-center justify-center mb-6">
+
+                        <div className="absolute w-full border-t border-slate-300 dark:border-slate-700"></div>
+
+                        <span className="relative bg-white dark:bg-slate-900 px-4 text-sm text-slate-500 dark:text-slate-400">
+                            OR CONTINUE WITH
+                        </span>
+                    </div>
+
+                    <button
+                        onClick={handleRegister}
+                        type="button"
+                        className="w-full flex items-center justify-center gap-3 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 py-4 rounded-2xl font-bold text-slate-800 dark:text-white shadow-sm"
+                    >
+                        <FcGoogle size={24} />
+                        Continue with Google
+                    </button>
                 </div>
             </div>
         </section>
