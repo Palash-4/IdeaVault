@@ -1,11 +1,23 @@
 import Banner from "@/component/Banner";
-import Image from "next/image";
-import IdeasPage from "./ideas/page";
+import PopularCategories from "@/component/PopularIdea";
+import TopContributors from "@/component/TopContributers";
+import TrendingIdeas from "@/component/TrendingIdea";
+import WorkPage from "@/component/Works";
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch("http://localhost:5000/ideas",
+    {
+      cache: "no-store",
+    }
+  );
+  const ideas = await res.json();
   return (
-   <div className="mt-6">
-    <Banner></Banner>
-   </div>
+    <div >
+      <Banner></Banner>
+      <TrendingIdeas ideas={ideas}></TrendingIdeas>
+      <PopularCategories></PopularCategories>
+      <WorkPage></WorkPage>
+      <TopContributors></TopContributors>
+    </div>
   );
 }
