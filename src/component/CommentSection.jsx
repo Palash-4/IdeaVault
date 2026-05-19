@@ -209,7 +209,9 @@ const CommentSection = ({ ideaId, idea }) => {
                                     </h4>
 
                                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                                        Community Member
+                                        {
+                                            new Date(comment.createdAt).toLocaleString()
+                                        }
                                     </p>
                                 </div>
                             </div>

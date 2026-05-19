@@ -130,6 +130,11 @@ const LoginPage = () => {
                             className="w-full rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-5 py-4 outline-none focus:ring-2 focus:ring-cyan-500 text-slate-800 dark:text-white"
                         />
                         <FieldError className="text-red-500 text-sm mt-2" />
+                        <div className="flex justify-end mt-3">
+                            <div className="text-sm text-cyan-600 hover:underline font-semibold">
+                                Forgot Password?
+                            </div>
+                        </div>
                     </TextField>
                     <Button
                         type="submit"

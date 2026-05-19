@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FaChevronDown } from "react-icons/fa";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -169,14 +170,15 @@ const Navbar = () => {
                         ) : (
 
                             <div className="hidden lg:block relative group">
-                                <img
-                                    referrerPolicy="no-referrer"
-                                    src={
-                                        user?.image
-                                    }
-                                    alt="user"
-                                    className="w-12 h-12 rounded-full border-2 border-cyan-500 cursor-pointer"
-                                />
+                                <div className="flex items-center gap-2 cursor-pointer">
+                                    <img
+                                        referrerPolicy="no-referrer"
+                                        src={user?.image}
+                                        alt="user"
+                                        className="w-12 h-12 rounded-full border-2 border-cyan-500 object-cover"
+                                    />
+                                    <FaChevronDown className="text-slate-700 dark:text-slate-300 text-sm"/>
+                                </div>
                                 <div className="absolute right-0 mt-4 w-64 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-3 space-y-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                                     <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
                                         <div className="flex items-center gap-3">

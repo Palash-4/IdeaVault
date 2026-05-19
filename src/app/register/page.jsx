@@ -172,6 +172,11 @@ const RegisterPage = () => {
                         </p>
 
                         <FieldError className="text-red-500 text-sm mt-2" />
+                        <div className="flex justify-end mt-3">
+                            <div className="text-sm text-cyan-600 hover:underline font-semibold">
+                                Forgot Password?
+                            </div>
+                        </div>
                     </TextField>
                     <Button
                         type="submit"
