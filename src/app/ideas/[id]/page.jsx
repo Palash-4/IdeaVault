@@ -157,7 +157,7 @@ const IdeaDetailsPage = async ({
                         {detailedDescription}
                     </p>
                 </div>
-                <CommentSection ideaId={id} />
+                <CommentSection ideaId={id} idea={idea}/>
             </div>
         </section>
     );

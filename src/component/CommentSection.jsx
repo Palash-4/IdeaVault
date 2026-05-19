@@ -4,26 +4,17 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
-const CommentSection = ({ ideaId }) => {
-    const [comments, setComments] =
-        useState([]);
-    const [commentText, setCommentText] =
-        useState("");
-    const [isPending, setIsPending] =
-        useState(false);
-    const [editingId, setEditingId] =
-        useState(null);
-    const [editText, setEditText] =
-        useState("");
-    const {
-        data: session,
-    } = authClient.useSession();
+const CommentSection = ({ ideaId, idea }) => {
+    const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState("");
+    const [isPending, setIsPending] = useState(false);
+    const [editingId, setEditingId] = useState(null);
+    const [editText, setEditText] = useState("");
+    const { data: session } = authClient.useSession();
 
     const user = session?.user;
     useEffect(() => {
-        fetch(
-            `http://localhost:5000/comments/${ideaId}`
-        )
+        fetch(`http://localhost:5000/comments/${ideaId}`)
             .then((res) => res.json())
             .then((data) => setComments(data));
 
@@ -37,15 +28,13 @@ const CommentSection = ({ ideaId }) => {
         }
         setIsPending(true);
 
+
         const commentData = {
             ideaId,
-            userName:
-                user?.name ||
-                "Anonymous User",
-            userEmail:
-                user?.email || "",
-            userImage:
-                user?.image || "",
+            ideaTitle: idea.title,
+            userName: user?.name,
+            userEmail: user?.email,
+            userImage: user?.image,
             comment: commentText,
             createdAt: new Date(),
         };
@@ -86,7 +75,6 @@ const CommentSection = ({ ideaId }) => {
             setIsPending(false);
         }
     };
-
 
     const handleDelete = async (id) => {
         try {
@@ -135,9 +123,7 @@ const CommentSection = ({ ideaId }) => {
                 );
                 const updatedComments =
                     comments.map((item) => {
-
                         if (item._id === id) {
-
                             return {
                                 ...item,
                                 comment: editText,
@@ -202,10 +188,9 @@ const CommentSection = ({ ideaId }) => {
                             <div className="flex items-center gap-4">
                                 {
                                     comment.userImage ? (
-                                        <img
-                                            src={
-                                                comment.userImage
-                                            }
+                                        <img src={
+                                            comment.userImage
+                                        }
                                             alt={
                                                 comment.userName
                                             }
@@ -213,7 +198,6 @@ const CommentSection = ({ ideaId }) => {
                                         />
 
                                     ) : (
-
                                         <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-lg">
                                             {comment.userName?.charAt(0)}
                                         </div>
