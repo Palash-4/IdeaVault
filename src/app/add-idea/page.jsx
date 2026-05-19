@@ -1,10 +1,13 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 
 const AddIdeaPage = () => {
+    const { data: session, } = authClient.useSession();
+    const user = session?.user;
     const [isPending, setIsPending] = useState(false);
 
     const handleAddIdea = async (e) => {
@@ -13,7 +16,18 @@ const AddIdeaPage = () => {
 
         try {
             const formData = new FormData(e.currentTarget);
-            const idea = Object.fromEntries(formData.entries())
+            const formValues =
+                Object.fromEntries(
+                    formData.entries()
+                );
+
+            const idea = {
+                ...formValues,
+                userEmail: user?.email,
+                userName: user?.name,
+                userImage: user?.image,
+                createdAt: new Date(),
+            };
 
             console.log(idea)
 

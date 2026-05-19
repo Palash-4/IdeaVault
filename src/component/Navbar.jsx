@@ -4,17 +4,15 @@ import Link from "next/link";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { usePathname } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
 
-    const [menuOpen, setMenuOpen] =
-        useState(false);
-
-    const [darkMode, setDarkMode] =
-        useState(false);
-
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+    const pathname = usePathname();
     const {
         data: session,
     } = authClient.useSession();
@@ -74,23 +72,29 @@ const Navbar = () => {
                             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                                 IdeaVault
                             </h1>
-
                             <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 -mt-1">
                                 Share Validate Build
                             </p>
                         </div>
                     </Link>
+                    <nav className="hidden lg:flex items-center gap-5">
 
-                    <nav className="hidden lg:flex items-center gap-10">
                         <Link
                             href="/"
-                            className="text-cyan-500 font-semibold text-lg"
+                            className={`px-5 py-2 rounded-full transition font-medium text-lg ${pathname === "/"
+                                ? "bg-cyan-500 text-white shadow-lg"
+                                : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                }`}
                         >
                             Home
                         </Link>
+
                         <Link
                             href="/ideas"
-                            className="text-slate-700 dark:text-slate-300 hover:text-cyan-500 transition font-medium text-lg"
+                            className={`px-5 py-2 rounded-full transition font-medium text-lg ${pathname === "/ideas"
+                                ? "bg-cyan-500 text-white shadow-lg"
+                                : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                }`}
                         >
                             Ideas
                         </Link>
@@ -98,19 +102,30 @@ const Navbar = () => {
                             <>
                                 <Link
                                     href="/add-idea"
-                                    className="text-slate-700 dark:text-slate-300 hover:text-cyan-500 transition font-medium text-lg"
+                                    className={`px-5 py-2 rounded-full transition font-medium text-lg ${pathname === "/add-idea"
+                                        ? "bg-cyan-500 text-white shadow-lg"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     Add Idea
                                 </Link>
+
                                 <Link
                                     href="/my-ideas"
-                                    className="text-slate-700 dark:text-slate-300 hover:text-cyan-500 transition font-medium text-lg"
+                                    className={`px-5 py-2 rounded-full transition font-medium text-lg ${pathname === "/my-ideas"
+                                        ? "bg-cyan-500 text-white shadow-lg"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     My Ideas
                                 </Link>
+
                                 <Link
                                     href="/my-interactions"
-                                    className="text-slate-700 dark:text-slate-300 hover:text-cyan-500 transition font-medium text-lg"
+                                    className={`px-5 py-2 rounded-full transition font-medium text-lg ${pathname === "/my-interactions"
+                                        ? "bg-cyan-500 text-white shadow-lg"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     My Interactions
                                 </Link>
@@ -135,7 +150,6 @@ const Navbar = () => {
                             )}
                         </button>
                         {!user ? (
-
                             <div className="hidden lg:flex items-center gap-4">
                                 <Link
                                     href="/login"
@@ -155,7 +169,6 @@ const Navbar = () => {
                         ) : (
 
                             <div className="hidden lg:block relative group">
-
                                 <img
                                     referrerPolicy="no-referrer"
                                     src={
@@ -164,13 +177,9 @@ const Navbar = () => {
                                     alt="user"
                                     className="w-12 h-12 rounded-full border-2 border-cyan-500 cursor-pointer"
                                 />
-
                                 <div className="absolute right-0 mt-4 w-64 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-3 space-y-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-
                                     <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-
                                         <div className="flex items-center gap-3">
-
                                             <img
                                                 referrerPolicy="no-referrer"
                                                 src={
@@ -196,7 +205,6 @@ const Navbar = () => {
                                             Edit Profile
                                         </Link>
                                     </div>
-
                                     <button
                                         onClick={handleLogout}
                                         className="w-full text-left px-4 py-3 rounded-xl hover:bg-red-500 hover:text-white transition text-slate-700 dark:text-slate-300"
@@ -206,14 +214,12 @@ const Navbar = () => {
                                 </div>
                             </div>
                         )}
-
                         <button
                             onClick={() =>
                                 setMenuOpen(!menuOpen)
                             }
                             className="lg:hidden w-10 h-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300"
                         >
-
                             {menuOpen ? (
                                 <X size={20} />
                             ) : (
@@ -224,16 +230,13 @@ const Navbar = () => {
                 </div>
             </div>
             {menuOpen && (
-
                 <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
                     <div className="px-6 py-6 flex flex-col gap-5">
                         {user && (
                             <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                                 <img
                                     referrerPolicy="no-referrer"
-                                    src={
-                                        user?.image
-                                    }
+                                    src={user?.image}
                                     alt={user?.name}
                                     className="w-16 h-16 rounded-full object-cover border-2 border-cyan-500"
                                 />
@@ -253,56 +256,63 @@ const Navbar = () => {
                                 </div>
                             </div>
                         )}
-
                         <Link
                             href="/"
-                            className="text-lg font-semibold text-cyan-500"
+                            className={`px-5 py-3 rounded-2xl transition font-medium text-lg ${pathname === "/"
+                                ? "bg-cyan-500 text-white"
+                                : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                }`}
                         >
                             Home
                         </Link>
-
                         <Link
                             href="/ideas"
-                            className="text-lg font-medium text-slate-700 dark:text-slate-300"
+                            className={`px-5 py-3 rounded-2xl transition font-medium text-lg ${pathname === "/ideas"
+                                ? "bg-cyan-500 text-white"
+                                : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                }`}
                         >
                             Ideas
                         </Link>
-
                         {user && (
                             <>
                                 <Link
                                     href="/add-idea"
-                                    className="text-lg font-medium text-slate-700 dark:text-slate-300"
+                                    className={`px-5 py-3 rounded-2xl transition font-medium text-lg ${pathname === "/add-idea"
+                                        ? "bg-cyan-500 text-white"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     Add Idea
                                 </Link>
-
                                 <Link
                                     href="/my-ideas"
-                                    className="text-lg font-medium text-slate-700 dark:text-slate-300"
+                                    className={`px-5 py-3 rounded-2xl transition font-medium text-lg ${pathname === "/my-ideas"
+                                        ? "bg-cyan-500 text-white"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     My Ideas
                                 </Link>
-
                                 <Link
                                     href="/my-interactions"
-                                    className="text-lg font-medium text-slate-700 dark:text-slate-300"
+                                    className={`px-5 py-3 rounded-2xl transition font-medium text-lg ${pathname === "/my-interactions"
+                                        ? "bg-cyan-500 text-white"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-cyan-100 dark:hover:bg-slate-800"
+                                        }`}
                                 >
                                     My Interactions
                                 </Link>
                             </>
                         )}
                         {!user ? (
-
                             <div className="flex flex-col gap-4 pt-4">
-
                                 <Link
                                     href="/login"
                                     className="text-center border border-cyan-500 text-cyan-500 py-3 rounded-full font-semibold"
                                 >
                                     Login
                                 </Link>
-
                                 <Link
                                     href="/register"
                                     className="text-center bg-cyan-500 hover:bg-cyan-600 transition text-white py-3 rounded-full font-semibold"
@@ -310,9 +320,7 @@ const Navbar = () => {
                                     Register
                                 </Link>
                             </div>
-
                         ) : (
-
                             <button
                                 onClick={handleLogout}
                                 className="bg-red-500 hover:bg-red-600 text-white py-3 rounded-full font-semibold transition"
