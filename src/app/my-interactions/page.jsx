@@ -13,9 +13,21 @@ const MyInteractionsPage = () => {
         if (!user?.email) return;
         const fetchComments = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/my-interactions/${user.email}`);
+                const {data:tokenData} = await authClient.token();
+                const res = await fetch(`http://localhost:5000/my-interactions/${user.email}`,
+                    {
+                        headers: {
+                            authorization: `Bearer ${tokenData?.token}`,
+                        },
+                    }
+                );
                 const data = await res.json();
-                setComments(data);
+                console.log(data);
+                setComments(
+                    Array.isArray(data)
+                        ? data
+                        : []
+                );
             } catch (error) {
                 console.log(error);
             } finally {

@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import Swal from "sweetalert2";
-
 import IdeaCard from "@/component/IdeaCard";
-
 import { authClient } from "@/lib/auth-client";
 
 const MyIdeasPage = () => {
@@ -24,9 +21,23 @@ const MyIdeasPage = () => {
         const fetchIdeas =
             async () => {
                 try {
-                    const res = await fetch(`http://localhost:5000/my-ideas/${user.email}`);
+                    const {data:tokenData} = await authClient.token();
+                    const res =await fetch(`http://localhost:5000/my-ideas/${user.email}`,
+                            {
+                                headers: {
+                                    authorization: `Bearer ${tokenData?.token}`,
+                                },
+                            }
+                        );
                     const data = await res.json();
-                    setIdeas(data);
+
+                    console.log(data);
+
+                    setIdeas(
+                        Array.isArray(data)
+                            ? data
+                            : []
+                    );
                 } catch (error) {
                     console.log(error);
                 } finally {
@@ -50,11 +61,14 @@ const MyIdeasPage = () => {
             if (!result.isConfirmed)
                 return;
             try {
-                const res =
-                    await fetch(
-                        `http://localhost:5000/ideas/${id}`,
+                const {data:tokenData} = await authClient.token();
+                const res =await fetch(`http://localhost:5000/ideas/${id}`,
                         {
-                            method: "DELETE",
+                            method:
+                                "DELETE",
+                            headers: {
+                                authorization: `Bearer ${tokenData?.token}`,
+                            },
                         }
                     );
                 const data = await res.json();
@@ -103,12 +117,14 @@ const MyIdeasPage = () => {
                         editAudience,
                 };
 
+                const {data:tokenData} = await authClient.token();
+
                 const res = await fetch(`http://localhost:5000/ideas/${selectedIdea._id}`,
                     {
                         method: "PATCH",
                         headers: {
-                            "content-type":
-                                "application/json",
+                            "content-type": 'application/json',
+                            authorization: `Bearer ${tokenData?.token}`,
                         },
                         body: JSON.stringify(
                             updatedIdea

@@ -13,9 +13,7 @@ const IdeasPage = () => {
   useEffect(() => {
     const fetchIdeas = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:5000/ideas"
-        );
+        const res = await fetch("http://localhost:5000/ideas");
         const data = await res.json();
         setIdeas(data);
       } catch (error) {
@@ -30,9 +28,7 @@ const IdeasPage = () => {
 
   const categories = useMemo(() => {
     const allCategories =
-      ideas.map(
-        (idea) => idea.category
-      );
+      ideas.map((idea) => idea.category);
     return [
       "All",
       ...new Set(allCategories),

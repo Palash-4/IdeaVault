@@ -7,16 +7,16 @@ import { authClient } from "@/lib/auth-client";
 const CommentSection = ({ ideaId, idea }) => {
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState("");
-    const [isPending, setIsPending] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState("");
+    const [isPending, setIsPending] = useState(false);
     const { data: session } = authClient.useSession();
 
     const user = session?.user;
     useEffect(() => {
         fetch(`http://localhost:5000/comments/${ideaId}`)
-            .then((res) => res.json())
-            .then((data) => setComments(data));
+        .then((res) => res.json())
+        .then((data) => setComments(data));
 
     }, [ideaId]);
     const handleComment = async (e) => {
@@ -40,12 +40,14 @@ const CommentSection = ({ ideaId, idea }) => {
         };
 
         try {
+            const { data: tokenData } = await authClient.token();
             const res = await fetch("http://localhost:5000/comments",
                 {
                     method: "POST",
                     headers: {
-                        "content-type":
-                            "application/json",
+                        "content-type": 'application/json',
+                        authorization: `Bearer ${tokenData?.token}`,
+
                     },
                     body: JSON.stringify(
                         commentData
@@ -78,68 +80,76 @@ const CommentSection = ({ ideaId, idea }) => {
 
     const handleDelete = async (id) => {
         try {
+            const { data: tokenData } = await authClient.token();
             const res = await fetch(`http://localhost:5000/comments/${id}`,
                 {
                     method: "DELETE",
+                    headers: {
+                        authorization: `Bearer ${tokenData?.token}`,
+                    },
                 }
             );
+
             const data = await res.json();
+
             if (data.deletedCount > 0) {
                 toast.success(
                     "Comment Deleted"
                 );
-                const remaining =
-                    comments.filter(
-                        (comment) =>
-                            comment._id !== id
-                    );
+                const remaining = comments.filter(
+                    (comment) => comment._id !== id
+                );
+
                 setComments(remaining);
             }
+
         } catch (error) {
             console.log(error);
-            toast.error(
-                "Delete Failed"
-            );
+            toast.error("Delete Failed");
         }
     };
+
     const handleEdit = async (id) => {
         try {
+            const { data: tokenData } = await authClient.token();
             const res = await fetch(`http://localhost:5000/comments/${id}`,
                 {
                     method: "PATCH",
                     headers: {
-                        "content-type":
-                            "application/json",
+                        "content-type": "application/json",
+                        authorization: `Bearer ${tokenData?.token}`,
                     },
                     body: JSON.stringify({
                         comment: editText,
                     }),
                 }
             );
+
             const data = await res.json();
+            console.log(data);
+
             if (data.modifiedCount > 0) {
-                toast.success(
-                    "Comment Updated"
+                toast.success("Comment Updated");
+                const updatedComments = comments.map((item) => {
+                    if (
+                        item._id === id
+                    ) {
+                        return {
+                            ...item,
+                            comment: editText,
+                        };
+                    }
+                    return item;
+                });
+                setComments(
+                    updatedComments
                 );
-                const updatedComments =
-                    comments.map((item) => {
-                        if (item._id === id) {
-                            return {
-                                ...item,
-                                comment: editText,
-                            };
-                        }
-                        return item;
-                    });
-                setComments(updatedComments);
                 setEditingId(null);
                 setEditText("");
             }
         } catch (error) {
             console.log(error);
-            toast.error(
-                "Update Failed"
-            );
+            toast.error("Update Failed");
         }
     };
 
@@ -168,8 +178,14 @@ const CommentSection = ({ ideaId, idea }) => {
                 ></textarea>
                 <button
                     type="submit"
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 text-white px-8 py-4 rounded-2xl font-bold shadow-lg"
-                >Post Comment
+                    disabled={isPending}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 text-white px-8 py-4 rounded-2xl font-bold shadow-lg disabled:opacity-50"
+                >
+                    {
+                        isPending
+                            ? "Posting..."
+                            : "Post Comment"
+                    }
                 </button>
             </form>
             <div className="mt-12 space-y-6">
@@ -229,10 +245,9 @@ const CommentSection = ({ ideaId, idea }) => {
                                         />
                                         <div className="flex gap-3">
                                             <button
+                                                type="button"
                                                 onClick={() =>
-                                                    handleEdit(
-                                                        comment._id
-                                                    )
+                                                    handleEdit(comment._id)
                                                 }
                                                 className="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2 rounded-xl font-semibold"
                                             >

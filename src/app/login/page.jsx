@@ -1,16 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import {
-    useState,
-} from "react";
-
-import {
-    useRouter,
-    useSearchParams,
-} from "next/navigation";
+import {useState} from "react";
+import {useRouter,useSearchParams} from "next/navigation";
 import toast from "react-hot-toast";
-
 import { authClient } from "@/lib/auth-client";
 
 import {
@@ -48,8 +41,8 @@ const LoginPage = () => {
             if (error) {
                 toast.error(error.message);
             }
-        } catch (err) {
-            console.log(err);
+        } catch (error) {
+            console.log(error);
             toast.error("Something went wrong");
         } finally {
             setIsPending(false);

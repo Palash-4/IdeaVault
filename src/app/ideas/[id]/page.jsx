@@ -2,18 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckmarkIcon } from "react-hot-toast";
 import CommentSection from "@/component/CommentSection";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-
-const IdeaDetailsPage = async ({
-    params,
-}) => {
-
+const IdeaDetailsPage = async ({params}) => {
     const { id } = await params;
-
-    const res = await fetch(
-        `http://localhost:5000/ideas/${id}`,
+    const {token} =await auth.api.getToken({
+        headers: await headers(),
+    });
+    const res = await fetch(`http://localhost:5000/ideas/${id}`,
         {
-            cache: "no-store",
+            headers: {
+                authorization:`Bearer ${token}`
+            },
+
+            cache:
+                "no-store",
         }
     );
 
@@ -34,14 +38,13 @@ const IdeaDetailsPage = async ({
 
     return (
         <section className="min-h-screen bg-slate-50 dark:bg-slate-950 py-24 px-4 sm:px-6 lg:px-8">
-
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
                     <div className="relative overflow-hidden rounded-[2rem] shadow-2xl">
 
                         <Image
                             src={imageURL}
-                            alt={title}
+                            alt={title || "Idea Image" }
                             width={900}
                             height={600}
                             className="w-full h-[500px] object-cover"
