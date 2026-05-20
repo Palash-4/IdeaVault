@@ -14,7 +14,7 @@ const CommentSection = ({ ideaId, idea }) => {
 
     const user = session?.user;
     useEffect(() => {
-        fetch(`http://localhost:5000/comments/${ideaId}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${ideaId}`)
         .then((res) => res.json())
         .then((data) => setComments(data));
 
@@ -41,7 +41,7 @@ const CommentSection = ({ ideaId, idea }) => {
 
         try {
             const { data: tokenData } = await authClient.token();
-            const res = await fetch("http://localhost:5000/comments",
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments`,
                 {
                     method: "POST",
                     headers: {
@@ -81,7 +81,7 @@ const CommentSection = ({ ideaId, idea }) => {
     const handleDelete = async (id) => {
         try {
             const { data: tokenData } = await authClient.token();
-            const res = await fetch(`http://localhost:5000/comments/${id}`,
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -112,7 +112,7 @@ const CommentSection = ({ ideaId, idea }) => {
     const handleEdit = async (id) => {
         try {
             const { data: tokenData } = await authClient.token();
-            const res = await fetch(`http://localhost:5000/comments/${id}`,
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${id}`,
                 {
                     method: "PATCH",
                     headers: {

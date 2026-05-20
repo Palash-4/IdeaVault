@@ -28,7 +28,7 @@ const PopularCategories = () => {
     useEffect(() => {
         const fetchIdeas = async () => {
             try {
-                const res = await fetch("http://localhost:5000/ideas");
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/ideas`);
                 const data = await res.json();
                 setIdeas(data);
             } catch (error) {

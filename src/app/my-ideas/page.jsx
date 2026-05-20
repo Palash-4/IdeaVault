@@ -22,7 +22,7 @@ const MyIdeasPage = () => {
             async () => {
                 try {
                     const {data:tokenData} = await authClient.token();
-                    const res =await fetch(`http://localhost:5000/my-ideas/${user.email}`,
+                    const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-ideas/${user.email}`,
                             {
                                 headers: {
                                     authorization: `Bearer ${tokenData?.token}`,
@@ -62,7 +62,7 @@ const MyIdeasPage = () => {
                 return;
             try {
                 const {data:tokenData} = await authClient.token();
-                const res =await fetch(`http://localhost:5000/ideas/${id}`,
+                const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/ideas/${id}`,
                         {
                             method:
                                 "DELETE",
@@ -119,7 +119,7 @@ const MyIdeasPage = () => {
 
                 const {data:tokenData} = await authClient.token();
 
-                const res = await fetch(`http://localhost:5000/ideas/${selectedIdea._id}`,
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/ideas/${selectedIdea._id}`,
                     {
                         method: "PATCH",
                         headers: {

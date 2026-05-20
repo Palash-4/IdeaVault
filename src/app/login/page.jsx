@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import {useState} from "react";
-import {useRouter,useSearchParams} from "next/navigation";
+import { Suspense, useState } from "react";
+import {
+    useRouter,
+    useSearchParams,
+} from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-
 import {
     Button,
     FieldError,
@@ -16,15 +18,14 @@ import {
 } from "react-aria-components";
 import { FcGoogle } from "react-icons/fc";
 
-const LoginPage = () => {
+function LoginContent() {
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirect = searchParams.get("redirect") || "/";
     const onSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget
-        );
+        const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
         setIsPending(true);
         try {
@@ -34,22 +35,29 @@ const LoginPage = () => {
                     password: user.password,
                 });
             if (data) {
-                toast.success("Login Successful");
+                toast.success(
+                    "Login Successful"
+                );
                 router.push(redirect);
             }
-
             if (error) {
-                toast.error(error.message);
+                toast.error(
+                    error.message
+                );
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something went wrong");
+            toast.error(
+                "Something went wrong"
+            );
+
         } finally {
             setIsPending(false);
         }
     };
 
-    const handlelogin = async () => {
+    const handleLogin = async () => {
+
         try {
             await authClient.signIn.social({
                 provider: "google",
@@ -83,16 +91,6 @@ const LoginPage = () => {
                         isRequired
                         name="email"
                         type="email"
-                        validate={(value) => {
-                            if (
-                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                    value
-                                )
-                            ) {
-                                return "Please enter a valid email";
-                            }
-                            return null;
-                        }}
                     >
                         <Label className="block mb-3 font-bold text-slate-800 dark:text-slate-200">
                             Email Address
@@ -105,15 +103,8 @@ const LoginPage = () => {
                     </TextField>
                     <TextField
                         isRequired
-                        minLength={8}
                         name="password"
                         type="password"
-                        validate={(value) => {
-                            if (value.length < 8) {
-                                return "Minimum 8 characters required";
-                            }
-                            return null;
-                        }}
                     >
                         <Label className="block mb-3 font-bold text-slate-800 dark:text-slate-200">
                             Password
@@ -123,17 +114,13 @@ const LoginPage = () => {
                             className="w-full rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-5 py-4 outline-none focus:ring-2 focus:ring-cyan-500 text-slate-800 dark:text-white"
                         />
                         <FieldError className="text-red-500 text-sm mt-2" />
-                        <div className="flex justify-end mt-3">
-                            <div className="text-sm text-cyan-600 hover:underline font-semibold">
-                                Forgot Password?
-                            </div>
-                        </div>
                     </TextField>
                     <Button
                         type="submit"
                         isDisabled={isPending}
                         className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 text-white py-4 rounded-2xl font-bold shadow-xl"
-                    >Login
+                    >
+                        Login
                     </Button>
                 </Form>
                 <div className="mt-8 text-center">
@@ -148,17 +135,9 @@ const LoginPage = () => {
                     </p>
                 </div>
                 <div className="mt-8">
-                    <div className="relative flex items-center justify-center mb-6">
-
-                        <div className="absolute w-full border-t border-slate-300 dark:border-slate-700"></div>
-
-                        <span className="relative bg-white dark:bg-slate-900 px-4 text-sm text-slate-500 dark:text-slate-400">
-                            OR CONTINUE WITH
-                        </span>
-                    </div>
 
                     <button
-                        onClick={handlelogin}
+                        onClick={handleLogin}
                         type="button"
                         className="w-full flex items-center justify-center gap-3 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 py-4 rounded-2xl font-bold text-slate-800 dark:text-white shadow-sm"
                     >
@@ -169,6 +148,20 @@ const LoginPage = () => {
             </div>
         </section>
     );
-};
+}
 
-export default LoginPage;
+export default function LoginPage() {
+
+    return (
+        <Suspense
+            fallback={
+                <div className="min-h-screen flex items-center justify-center text-2xl font-bold">
+                    Loading...
+                </div>
+            }
+        >
+            <LoginContent />
+        </Suspense>
+    );
+}
+
