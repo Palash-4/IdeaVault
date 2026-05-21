@@ -15,8 +15,8 @@ const CommentSection = ({ ideaId, idea }) => {
     const user = session?.user;
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${ideaId}`)
-        .then((res) => res.json())
-        .then((data) => setComments(data));
+            .then((res) => res.json())
+            .then((data) => setComments(data));
 
     }, [ideaId]);
     const handleComment = async (e) => {
@@ -270,34 +270,27 @@ const CommentSection = ({ ideaId, idea }) => {
                                         <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                                             {comment.comment}
                                         </p>
-                                        <div className="flex gap-5 mt-5">
-
-                                            <button
-                                                onClick={() => {
-                                                    setEditingId(
-                                                        comment._id
-                                                    );
-
-                                                    setEditText(
-                                                        comment.comment
-                                                    );
-                                                }}
-                                                className="text-cyan-600 font-semibold hover:underline"
-                                            >
-                                                Edit
-                                            </button>
-
-                                            <button
-                                                onClick={() =>
-                                                    handleDelete(
-                                                        comment._id
-                                                    )
-                                                }
-                                                className="text-red-500 font-semibold hover:underline"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
+                                        {
+                                            comment.userEmail === user?.email && (
+                                                <div className="flex gap-5 mt-5">
+                                                    <button
+                                                        onClick={() => {
+                                                            setEditingId(comment._id);
+                                                            setEditText(comment.comment);
+                                                        }}
+                                                        className="text-cyan-600 font-semibold hover:underline"
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(comment._id)}
+                                                        className="text-red-500 font-semibold hover:underline"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            )
+                                        }
                                     </>
                                 )}
                             </div>

@@ -1,36 +1,247 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IdeaVault – Startup Idea Sharing Platform
 
-## Getting Started
+A modern startup idea sharing platform where users can discover, share, manage, and discuss innovative startup concepts from around the world.
 
-First, run the development server:
+Built with **Next.js**, **Better Auth**, **MongoDB**, **Tailwind CSS**, and **Express.js**.
+
+---
+
+# 🔗 Live Website
+
+```bash
+https://idea-vault-gilt.vercel.app/
+```
+
+---
+
+# 📂 GitHub Repositories
+
+## Client Repository
+
+```bash
+https://github.com/Palash-4/IdeaVault
+```
+
+## Server Repository
+
+```bash
+https://github.com/Palash-4/IdeaVault-Server
+```
+
+---
+
+# 🚀 Features
+
+* User Authentication with Better Auth
+* Google Login & Registration
+* JWT Protected Routes
+* Create Startup Ideas
+* Update & Delete Own Ideas
+* Explore Public Ideas
+* Comment System
+* Edit & Delete Own Comments Only
+* My Ideas Dashboard
+* My Interactions Page
+* Responsive Design
+* Dark / Light Mode
+* Beautiful Modern UI
+* Secure Backend API
+* MongoDB Database Integration
+
+---
+
+# 🛠️ Technologies Used
+
+## Frontend
+
+* Next.js 16
+* React 19
+* Tailwind CSS
+* Better Auth
+* React Hot Toast
+* SweetAlert2
+* Lucide React
+* React Icons
+* Swiper JS
+
+## Backend
+
+* Express.js
+* MongoDB
+* JOSE JWT Verification
+* CORS
+* dotenv
+
+---
+
+# 🔐 Authentication & Security
+
+* Email/Password Authentication
+* Google Authentication
+* JWT Token Verification
+* Protected API Routes
+* Authorization Based Comment Control
+* Secure User Data Access
+
+---
+
+# 📄 Pages
+
+* Home Page
+* Ideas Page
+* Idea Details Page
+* Add Idea Page
+* My Ideas Page
+* My Interactions Page
+* Login Page
+* Register Page
+* Profile Page
+* Custom 404 Page
+
+---
+
+# ⚡ Installation & Setup
+
+## Clone the repositories
+
+```bash
+git clone https://github.com/Palash-4/IdeaVault.git
+```
+
+```bash
+git clone https://github.com/Palash-4/IdeaVault-Server.git
+```
+
+---
+
+# 📦 Frontend Setup
+
+## Navigate to client folder
+
+```bash
+cd idea-vault
+```
+
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# 📦 Backend Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Navigate to server folder
 
-## Learn More
+```bash
+cd ideavault-server
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Install dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Start backend server
 
-## Deploy on Vercel
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 🔑 Environment Variables
+
+## Frontend (.env.local)
+
+```env
+NEXT_PUBLIC_SERVER_URL=http://localhost:5000
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URI=your_mongodb_uri
+```
+
+---
+
+## Backend (.env)
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+CLIENT_URL=http://localhost:3000
+```
+
+---
+
+# 🌐 API Endpoints
+
+## Ideas
+
+* GET /ideas
+* POST /ideas
+* GET /ideas/:id
+* PATCH /ideas/:id
+* DELETE /ideas/:id
+* GET /my-ideas/:email
+
+## Comments
+
+* GET /comments/:ideaId
+* POST /comments
+* PATCH /comments/:id
+* DELETE /comments/:id
+* GET /my-interactions/:email
+
+---
+
+# 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+
+* Mobile Devices
+* Tablets
+* Laptops
+* Desktop Screens
+
+---
+
+# ✨ UI Highlights
+
+* Modern Gradient Design
+* Animated Components
+* Interactive Cards
+* Smooth Hover Effects
+* Clean Dashboard Layout
+* Professional Typography
+* Elegant Dark Mode
+
+---
+
+# 🧠 Project Purpose
+
+IdeaVault helps entrepreneurs and creators share startup concepts, receive feedback, and collaborate with others in a modern online community.
+
+---
+
+# 👨‍💻 Developer
+
+## Md. Hasan Al Tarek Palash
+
+* Full Stack Web Developer
+* Passionate about modern web technologies and clean UI/UX design.
+
+---
+
+# 📜 License
+
+This project is created for educational and portfolio purposes.
