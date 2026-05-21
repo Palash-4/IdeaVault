@@ -17,7 +17,7 @@ const Footer = () => {
                     <div>
                         <div className="flex flex-col items-center sm:items-start">
                             <div >
-                                <h1 className="text-4xl  sm:text-5xl font-extrabold text-slate-900 dark:text-white">
+                                <h1 className="text-3xl  sm:text-4xl font-extrabold text-slate-900 dark:text-white">
                                     IdeaVault
                                 </h1>
 

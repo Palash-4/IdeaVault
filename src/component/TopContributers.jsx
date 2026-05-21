@@ -3,10 +3,10 @@ import { FaAward } from "react-icons/fa";
 
 const TopContributors = () => {
     return (
-        <section className="bg-slate-50 dark:bg-slate-950 py-24 px-4 sm:px-6 lg:px-8">
+        <section className="bg-slate-50 dark:bg-slate-950 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="flex items-center justify-between mb-16">
-                    <div>
+                    <div className="text-center mx-auto">
                         <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
                             Top Contributors
                         </h2>

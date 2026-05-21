@@ -7,7 +7,7 @@ const WorkPage = () => {
         <section className="bg-slate-50 dark:bg-slate-950 py-24 px-4">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
+                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">
                         How It Works
                     </h2>
                     <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
